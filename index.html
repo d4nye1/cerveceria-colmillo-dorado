@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Colmillo Dorado</title>
+
+  <!-- IMPORTACIÓN DE FUENTE -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&display=swap" rel="stylesheet" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Cormorant Garamond', serif;
+      color: #fff;
+      text-align: center;
+      padding: 1rem;
+      background: url('/imagenes/vaso3.jpg') no-repeat center center fixed;
+      background-size: cover;
+      position: relative;
+    }
+
+    /* Capa oscura encima del fondo */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.5); /* Ajusta el nivel de oscuridad aquí */
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card {
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(8px);
+      border: 2px solid gold;
+      border-radius: 16px;
+      padding: 2rem 1rem;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .logo {
+      max-width: 200px;
+      margin: 0.5rem auto;
+    }
+
+    h1 {
+      font-size: 2.0rem;
+      margin-bottom: 0.2rem;
+      color: gold;
+      letter-spacing: 0px;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+    }
+
+    p {
+      color: #ccc;
+      margin-bottom: 2rem;
+      font-style: italic;
+      font-size: 1.2rem;
+      text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.6);
+    }
+
+    .link-btn {
+      display: block;
+      background: gold;
+      color: #111;
+      padding: 1rem;
+      margin: 0.5rem auto;
+      width: 90%;
+      max-width: 360px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .link-btn:hover {
+      background: #322e1b;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <img src="imagenes/logoSFondo.png" alt="Colmillo Dorado" class="logo" />
+      <h1>COLMILLO DORADO</h1>
+      <p>El precio de ser leyenda</p>
+
+      <a href="https://www.instagram.com/colmillo_dorado" class="link-btn" target="_blank">Instagram</a>
+      <a href="https://www.facebook.com/colmillo_dorado" class="link-btn" target="_blank">Facebook</a>
+      <a href="https://wa.me/5210000000000" class="link-btn" target="_blank">WhatsApp</a>
+      <a href="https://tienda.colmillodorado.com" class="link-btn" target="_blank">Tienda en línea</a>
+    </div>
+  </div>
+</body>
+</html>

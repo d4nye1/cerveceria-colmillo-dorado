@@ -7,6 +7,7 @@
 
   <!-- IMPORTACIÓN DE FUENTE -->
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&display=swap" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 
   <style>
     body {
@@ -18,6 +19,7 @@
       background: url('imagenes/vaso3.jpg') no-repeat center center fixed;
       background-size: cover;
       position: relative;
+      box-sizing: border-box;
     }
 
     /* Capa oscura encima del fondo */
@@ -79,19 +81,39 @@
       background: gold;
       color: #111;
       padding: 1rem;
-      margin: 0.5rem auto;
-      width: 90%;
-      max-width: 360px;
-      border-radius: 10px;
+      margin: 0.6rem auto;
+      width: calc(100% - 2rem);
+      max-width: 250px;
+      border-radius: 90px;
       text-decoration: none;
       font-weight: bold;
       transition: background 0.3s;
+       box-sizing: border-box;
     }
 
     .link-btn:hover {
       background: #322e1b;
       color: #ccc;
     }
+    @media (max-width: 480px) {
+  .link-btn {
+    font-size: 0.95rem;
+    padding: 0.8rem;
+    max-width: 280px;
+  }
+
+  .logo {
+    max-width: 160px;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+}
   </style>
 </head>
 <body>
@@ -101,9 +123,9 @@
       <h1>COLMILLO DORADO</h1>
       <p>El precio de ser leyenda</p>
 
-      <a href="https://www.instagram.com/colmillo_dorado" class="link-btn" target="_blank">Instagram</a>
-      <a href="https://www.facebook.com/colmillo_dorado" class="link-btn" target="_blank">Facebook</a>
-      <a href="https://wa.me/5210000000000" class="link-btn" target="_blank">WhatsApp</a>
+      <a href="https://www.instagram.com/colmillo.dorado?igsh=ZmxvbGEyYnc3cTBv" class="link-btn" target="_blank">Instagram</a>
+      <a href="https://www.facebook.com/share/1B5HitmZrV/" class="link-btn" target="_blank">Facebook</a>
+      <a href="https://wa.me/525582457051" class="link-btn" target="_blank">WhatsApp</a>
       <a href="https://tienda.colmillodorado.com" class="link-btn" target="_blank">Tienda en línea</a>
     </div>
   </div>

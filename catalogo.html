@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Catálogo - Colmillo Dorado</title>
+<link rel="stylesheet" href="style.css" />
+<style>
+/* Estilo modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.8);
+}
+
+.modal-content {
+  background-color: rgba(0,0,0,0.9);
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid gold;
+  width: 80%;
+  max-width: 400px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+button {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 30px;
+  border: none;
+  font-weight: bold;
+}
+.button-sí {
+  background: gold;
+  color: black;
+}
+.button-no {
+  background: darkred;
+  color: white;
+}
+.link-btn {
+  display: block;
+  background: gold;
+  color: #111;
+  padding: 1rem;
+  margin: 0.6rem auto;
+  width: calc(100% - 2rem);
+  max-width: 250px;
+  border-radius: 90px;
+  text-decoration: none;
+  font-weight: bold;
+}
+.link-btn:hover {
+  background: #322e1b;
+  color: #ccc;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Catálogo de Cervezas Colmillo Dorado</h1>
+</header>
+
+<main class="catalogo">
+  <div class="producto">
+    <img src="imagenes/cerveza1.jpg" alt="Cerveza IPA">
+    <h2>Cerveza IPA</h2>
+    <p>$80 MXN</p>
+    <button class="btn-comprar" data-producto="Cerveza IPA" data-precio="80">Comprar</button>
+  </div>
+
+  <div class="producto">
+    <img src="imagenes/cerveza2.jpg" alt="Cerveza Stout">
+    <h2>Cerveza Stout</h2>
+    <p>$90 MXN</p>
+    <button class="btn-comprar" data-producto="Cerveza Stout" data-precio="90">Comprar</button>
+  </div>
+</main>
+
+<a href="carrito.html" class="link-btn">Ver Carrito</a>
+
+<footer>
+  <a href="index.html" class="link-btn">Volver</a>
+  <button id="cerrarSesion" class="link-btn" style="background:red;">Cerrar sesión</button>
+</footer>
+
+<!-- Modal verificación de edad -->
+<div id="modalEdad" class="modal">
+  <div class="modal-content">
+    <h2>¿Eres mayor de edad?</h2>
+    <button class="button-sí" id="edadSi">Sí</button>
+    <button class="button-no" id="edadNo">No</button>
+  </div>
+</div>
+
+<!-- Modal mensajes -->
+<div id="modalMensaje" class="modal">
+  <div class="modal-content" id="modalMensajeContenido">
+    <p id="textoModalMensaje"></p>
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const modalMensaje = document.getElementById("modalMensaje");
+
+  // 🔹 Validar usuario activo
+  let usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
+  if (!usuarioActivo) {
+    window.location.href = "login.html";
+    return;
+  } else {
+    mostrarMensajeModal("Has ingresado correctamente, " + usuarioActivo.nombre);
+  }
+
+  const botones = document.querySelectorAll('.btn-comprar');
+  const modalEdad = document.getElementById("modalEdad");
+  let productoSeleccionado = null;
+
+  botones.forEach(boton => {
+    boton.addEventListener('click', () => {
+      productoSeleccionado = {
+        nombre: boton.getAttribute('data-producto'),
+        precio: boton.getAttribute('data-precio')
+      };
+
+      // Verificar si edad ya confirmada
+      if (!localStorage.getItem("edadConfirmada")) {
+        modalEdad.style.display = "block";
+      } else {
+        manejarCompra();
+      }
+    });
+  });
+
+  document.getElementById("edadSi").addEventListener("click", () => {
+    localStorage.setItem("edadConfirmada", "true");
+    modalEdad.style.display = "none";
+    manejarCompra();
+  });
+
+  document.getElementById("edadNo").addEventListener("click", () => {
+    modalEdad.style.display = "none";
+    mostrarMensajeModal("Lo sentimos guerrero, aún no puedes consagrarte pero sigue luchando para ser un Colmillo Dorado — el precio de ser leyenda.");
+  });
+
+  function manejarCompra() {
+    const usuario = JSON.parse(localStorage.getItem("usuarioActivo"));
+    if (!usuario) {
+      mostrarMensajeModal("Debes iniciar sesión o registrarte para comprar.");
+      setTimeout(() => {
+        window.location.href = "login.html";
+      }, 900);
+      return;
+    }
+
+    let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+    carrito.push(productoSeleccionado);
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+
+    mostrarMensajeModal("Se ha agregado al carrito");
+  }
+
+  function mostrarMensajeModal(texto) {
+    const textoModal = document.getElementById("textoModalMensaje");
+
+    textoModal.textContent = texto;
+    modalMensaje.style.display = "block";
+
+    setTimeout(() => {
+      modalMensaje.style.display = "none";
+    }, 1000);
+  }
+
+  // 🔹 Cerrar sesión
+  document.getElementById("cerrarSesion").addEventListener("click", () => {
+    localStorage.removeItem("usuarioActivo");
+    window.location.href = "login.html";
+  });
+});
+</script>
+
+</body>
+</html>

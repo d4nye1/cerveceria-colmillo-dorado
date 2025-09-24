@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carrito - Colmillo Dorado</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Tu Carrito</h1>
+  </header>
+
+  <main id="carrito-contenedor">
+    <p>No tienes productos en el carrito.</p>
+  </main>
+
+  <footer>
+    <button id="btn-pagar" class="link-btn">Pagar con MercadoPago</button>
+    <a href="catalogo.html" class="link-btn">Seguir Comprando</a>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const contenedor = document.getElementById("carrito-contenedor");
+      let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+      if (carrito.length === 0) {
+        contenedor.innerHTML = "<p>No tienes productos en el carrito.</p>";
+        return;
+      }
+
+      let html = "<ul>";
+      let total = 0;
+
+      carrito.forEach((item, index) => {
+        html += `
+          <li>
+            ${item.producto} - $${item.precio} 
+            <button class="eliminar" data-index="${index}">❌</button>
+          </li>
+        `;
+        total += parseFloat(item.precio);
+      });
+
+      html += `</ul><p>Total: $${total}</p>`;
+      contenedor.innerHTML = html;
+
+      // Botón eliminar producto
+      const botonesEliminar = document.querySelectorAll(".eliminar");
+      botonesEliminar.forEach(boton => {
+        boton.addEventListener("click", () => {
+          const index = boton.getAttribute("data-index");
+          carrito.splice(index, 1);
+          localStorage.setItem("carrito", JSON.stringify(carrito));
+          location.reload(); // recarga para actualizar vista
+        });
+      });
+    });
+
+    // Botón pagar (simple demo)
+    document.getElementById("btn-pagar").addEventListener("click", () => {
+      alert("Aquí iría la integración real de MercadoPago.");
+    });
+  </script>
+</body>
+</html>

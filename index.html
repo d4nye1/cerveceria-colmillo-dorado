@@ -1,133 +1,215 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Colmillo Dorado</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Colmillo Dorado</title>
 
-  <!-- IMPORTACIÓN DE FUENTE -->
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&display=swap" rel="stylesheet" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&display=swap" rel="stylesheet" />
 
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Cormorant Garamond', serif;
-      color: #fff;
-      text-align: center;
-      padding: 1rem;
-      background: url('imagenes/vaso3.jpg') no-repeat center center fixed;
-      background-size: cover;
-      position: relative;
-      box-sizing: border-box;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: 'Cormorant Garamond', serif;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+  background: url('imagenes/vaso3.jpg') no-repeat center center fixed;
+  background-size: cover;
+  position: relative;
+  box-sizing: border-box;
+}
 
-    /* Capa oscura encima del fondo */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      background-color: rgba(0, 0, 0, 0.5); /* Ajusta el nivel de oscuridad aquí */
-      z-index: 0;
-    }
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 0;
+}
 
-    .container {
-      position: relative;
-      z-index: 1;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
+.container {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
-    .card {
-      background: rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(8px);
-      border: 2px solid gold;
-      border-radius: 16px;
-      padding: 2rem 1rem;
-      max-width: 420px;
-      width: 100%;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
-    }
+.card {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  border: 2px solid gold;
+  border-radius: 16px;
+  padding: 2rem 1rem;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+}
 
-    .logo {
-      max-width: 200px;
-      margin: 0.5rem auto;
-    }
+.logo {
+  max-width: 200px;
+  margin: 0.5rem auto;
+}
 
-    h1 {
-      font-size: 2.0rem;
-      margin-bottom: 0.2rem;
-      color: gold;
-      letter-spacing: 0px;
-      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
-    }
+h1 {
+  font-size: 2rem;
+  margin-bottom: 0.2rem;
+  color: gold;
+  letter-spacing: 0px;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
 
-    p {
-      color: #ccc;
-      margin-bottom: 2rem;
-      font-style: italic;
-      font-size: 1.2rem;
-      text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.6);
-    }
+p {
+  color: #ccc;
+  margin-bottom: 2rem;
+  font-style: italic;
+  font-size: 1.2rem;
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.6);
+}
 
-    .link-btn {
-      display: block;
-      background: gold;
-      color: #111;
-      padding: 1rem;
-      margin: 0.6rem auto;
-      width: calc(100% - 2rem);
-      max-width: 250px;
-      border-radius: 90px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background 0.3s;
-       box-sizing: border-box;
-    }
+.link-btn {
+  display: block;
+  background: gold;
+  color: #111;
+  padding: 1rem;
+  margin: 0.6rem auto;
+  width: calc(100% - 2rem);
+  max-width: 250px;
+  border-radius: 90px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s;
+  box-sizing: border-box;
+}
 
-    .link-btn:hover {
-      background: #322e1b;
-      color: #ccc;
-    }
-    @media (max-width: 480px) {
+.link-btn:hover {
+  background: #322e1b;
+  color: #ccc;
+}
+
+@media (max-width: 480px) {
   .link-btn {
     font-size: 0.95rem;
     padding: 0.8rem;
     max-width: 280px;
   }
-
   .logo {
     max-width: 160px;
   }
-
   h1 {
     font-size: 1.6rem;
   }
-
   p {
     font-size: 1rem;
   }
 }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="card">
-      <img src="imagenes/logoSFondo.png" alt="Colmillo Dorado" class="logo" />
-      <h1>COLMILLO DORADO</h1>
-      <p>El precio de ser leyenda</p>
 
-      <a href="https://www.instagram.com/colmillo.dorado?igsh=ZmxvbGEyYnc3cTBv" class="link-btn" target="_blank">Instagram</a>
-      <a href="https://www.facebook.com/share/1B5HitmZrV/" class="link-btn" target="_blank">Facebook</a>
-      <a href="https://wa.me/525582457051" class="link-btn" target="_blank">WhatsApp</a>
-      <a href="https://d4nye1.github.io/cerveceria-colmillo-dorado/" class="link-btn" target="_blank">Sitio Web</a>
+/* Modal estilos */
+.modal {
+  display: none; 
+  position: fixed; 
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+  background: rgba(0,0,0,0.9);
+  margin: 15% auto;
+  padding: 20px;
+  border: 2px solid gold;
+  border-radius: 12px;
+  max-width: 400px;
+  text-align: center;
+}
+
+.modal-content h2 {
+  color: gold;
+}
+
+.modal-buttons {
+  margin-top: 20px;
+}
+
+.modal-buttons button {
+  padding: 10px 20px;
+  margin: 0 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#btn-si {
+  background: gold;
+  color: black;
+}
+
+#btn-no {
+  background: darkred;
+  color: white;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+  <div class="card">
+    <img src="imagenes/logoSFondo.png" alt="Colmillo Dorado" class="logo" />
+    <h1>COLMILLO DORADO</h1>
+    <p>El precio de ser leyenda</p>
+
+    <a href="https://www.instagram.com/colmillo.dorado?igsh=ZmxvbGEyYnc3cTBv" class="link-btn" target="_blank">Instagram</a>
+    <a href="https://www.facebook.com/share/1B5HitmZrV/" class="link-btn" target="_blank">Facebook</a>
+    <a href="https://wa.me/525582457051" class="link-btn" target="_blank">WhatsApp</a>
+    <button class="link-btn" id="boton-productos">Nuestros Productos</button>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="modal-edad" class="modal">
+  <div class="modal-content">
+    <h2 id="modal-titulo">¿Eres mayor de edad?</h2>
+    <div class="modal-buttons" id="modal-buttons">
+      <button id="btn-si">Sí</button>
+      <button id="btn-no">No</button>
     </div>
   </div>
+</div>
+
+<script>
+const botonProductos = document.getElementById("boton-productos");
+const modal = document.getElementById("modal-edad");
+const btnSi = document.getElementById("btn-si");
+const btnNo = document.getElementById("btn-no");
+const modalTitulo = document.getElementById("modal-titulo");
+const modalButtons = document.getElementById("modal-buttons");
+
+// Mostrar modal
+botonProductos.addEventListener("click", () => {
+  modal.style.display = "block";
+});
+
+// Si es mayor → ir a catálogo
+btnSi.addEventListener("click", () => {
+  window.location.href = "catalogo.html";
+});
+
+// Si no → mostrar mensaje en modal
+btnNo.addEventListener("click", () => {
+  modalTitulo.innerText = "Lo sentimos guerrero, aún no puedes consagrarte pero sigue luchando para ser un Colmillo Dorado. El precio de ser leyenda.";
+  modalButtons.style.display = "none";
+});
+</script>
 </body>
 </html>

@@ -82,6 +82,19 @@ button:hover {
   background: #322e1b;
   color: #ccc;
 }
+
+.login-link {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+.login-link a {
+  color: gold;
+  font-weight: bold;
+  text-decoration: none;
+}
+.login-link a:hover {
+  text-decoration: underline;
+}
 </style>
 </head>
 <body>
@@ -90,11 +103,20 @@ button:hover {
   <div class="card">
     <h1>Registro</h1>
     <form id="formRegistro">
-      <input type="text" id="nombre" placeholder="Nombre" required><br>
-      <input type="email" id="email" placeholder="Email" required><br>
-      <input type="password" id="password" placeholder="Contraseña" required><br>
-      <button type="submit">Registrar</button>
+      <input type="text" id="nombre" placeholder="Nombre completo"><br>
+      <input type="email" id="email" placeholder="Email"><br>
+      <input type="password" id="password" placeholder="Contraseña"><br>
+      <input type="password" id="confirmPassword" placeholder="Confirmar contraseña"><br>
+      <input type="tel" id="telefono" placeholder="Teléfono"><br>
+      <input type="date" id="fechaNacimiento"><br>
+      <button type="submit">Registrarse</button>
     </form>
+
+    <!-- ENLACE A LOGIN -->
+    <p class="login-link">
+      ¿Ya tienes cuenta?
+      <a href="login.html">Inicia sesión aquí</a>
+    </p>
   </div>
 </div>
 
@@ -105,27 +127,60 @@ document.getElementById("formRegistro").addEventListener("submit", function(e) {
   let nombre = document.getElementById("nombre").value.trim();
   let email = document.getElementById("email").value.trim();
   let password = document.getElementById("password").value.trim();
+  let confirmPassword = document.getElementById("confirmPassword").value.trim();
+  let telefono = document.getElementById("telefono").value.trim();
+  let fechaNacimiento = document.getElementById("fechaNacimiento").value;
 
-  if (!nombre || !email || !password) {
-    alert("Todos los campos son obligatorios");
+  if (!nombre) {
+    alert("Ingresa tu nombre completo");
+    return;
+  }
+  if (!email) {
+    alert("Ingresa tu email");
+    return;
+  }
+  if (!password) {
+    alert("Ingresa tu contraseña");
+    return;
+  }
+  if (!confirmPassword) {
+    alert("Confirma tu contraseña");
+    return;
+  }
+  if (password !== confirmPassword) {
+    alert("Las contraseñas no coinciden.");
+    return;
+  }
+  if (!fechaNacimiento) {
+    alert("Ingresa tu fecha de nacimiento");
     return;
   }
 
   let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
-  if (usuarios.find(u => u.email === email)) {
-    alert("Este email ya está registrado");
+  if (usuarios.some(u => u.email === email)) {
+    alert("El correo ya está registrado.");
     return;
   }
 
-  usuarios.push({ nombre, email, password });
+  let nuevoUsuario = {
+    id: Date.now(),
+    nombre,
+    email,
+    password,
+    telefono,
+    fechaNacimiento,
+    fechaRegistro: new Date().toISOString()
+  };
+
+  usuarios.push(nuevoUsuario);
   localStorage.setItem("usuarios", JSON.stringify(usuarios));
+  localStorage.setItem("usuarioActivo", JSON.stringify(nuevoUsuario));
 
-  localStorage.setItem("usuarioActivo", JSON.stringify({ nombre, email }));
-
-  alert("Registro exitoso");
+  // Quitamos alert y vamos directo al catálogo
   window.location.href = "catalogo.html";
 });
+
 </script>
 </body>
 </html>

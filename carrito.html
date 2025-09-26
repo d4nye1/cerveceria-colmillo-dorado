@@ -1,67 +1,214 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Carrito - Colmillo Dorado</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Carrito - Colmillo Dorado</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&display=swap" rel="stylesheet" />
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Cormorant Garamond', serif;
+  background: url('imagenes/vaso3.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #fff;
+  position: relative;
+  text-align: center;
+}
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 0;
+}
+header {
+  position: relative;
+  z-index: 1;
+  padding: 20px;
+}
+h1 {
+  font-size: 2rem;
+  color: gold;
+}
+main {
+  position: relative;
+  z-index: 1;
+  padding: 20px;
+}
+.card {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  border: 2px solid gold;
+  border-radius: 16px;
+  padding: 20px;
+  max-width: 500px;
+  margin: auto;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  padding: 10px;
+  border-bottom: 1px solid gold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+button {
+  background: gold;
+  color: #111;
+  border: none;
+  border-radius: 30px;
+  padding: 5px 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+button:hover {
+  background: darkgoldenrod;
+}
+footer {
+  position: relative;
+  z-index: 1;
+  padding: 20px;
+  text-align: center;
+}
+.link-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 10px;
+  background: gold;
+  color: black;
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: bold;
+}
+.link-btn:hover {
+  background: darkgoldenrod;
+}
+.total {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 10px;
+  color: gold;
+}
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.8);
+}
+.modal-content {
+  background-color: rgba(0,0,0,0.9);
+  margin: 20% auto;
+  padding: 20px;
+  border: 1px solid gold;
+  width: 80%;
+  max-width: 400px;
+  text-align: center;
+  border-radius: 10px;
+}
+</style>
 </head>
 <body>
-  <header>
-    <h1>Tu Carrito</h1>
-  </header>
 
-  <main id="carrito-contenedor">
-    <p>No tienes productos en el carrito.</p>
-  </main>
+<header>
+  <h1>Tu Carrito</h1>
+</header>
 
-  <footer>
-    <button id="btn-pagar" class="link-btn">Pagar con MercadoPago</button>
-    <a href="catalogo.html" class="link-btn">Seguir Comprando</a>
-  </footer>
+<main>
+  <div class="card" id="carrito-contenedor">
+    <p>Cargando carrito...</p>
+  </div>
+</main>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const contenedor = document.getElementById("carrito-contenedor");
-      let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+<footer>
+  <button id="btn-pagar" class="link-btn">Pagar con MercadoPago</button>
+  <a href="catalogo.html" class="link-btn">Seguir Comprando</a>
+</footer>
 
-      if (carrito.length === 0) {
-        contenedor.innerHTML = "<p>No tienes productos en el carrito.</p>";
-        return;
-      }
+<div id="modalMensaje" class="modal">
+  <div class="modal-content">
+    <p id="textoModalMensaje"></p>
+  </div>
+</div>
 
-      let html = "<ul>";
-      let total = 0;
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  renderizarCarrito();
+});
 
-      carrito.forEach((item, index) => {
-        html += `
-          <li>
-            ${item.producto} - $${item.precio} 
-            <button class="eliminar" data-index="${index}">❌</button>
-          </li>
-        `;
-        total += parseFloat(item.precio);
-      });
+function renderizarCarrito() {
+  const contenedor = document.getElementById("carrito-contenedor");
+  let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-      html += `</ul><p>Total: $${total}</p>`;
-      contenedor.innerHTML = html;
+  if (carrito.length === 0) {
+    contenedor.innerHTML = "<p>No tienes productos en el carrito.</p>";
+    return;
+  }
 
-      // Botón eliminar producto
-      const botonesEliminar = document.querySelectorAll(".eliminar");
-      botonesEliminar.forEach(boton => {
-        boton.addEventListener("click", () => {
-          const index = boton.getAttribute("data-index");
-          carrito.splice(index, 1);
-          localStorage.setItem("carrito", JSON.stringify(carrito));
-          location.reload(); // recarga para actualizar vista
-        });
-      });
+  let html = "<ul>";
+  let total = 0;
+
+  carrito.forEach(item => {
+    html += `
+      <li>
+        <span>${item.producto} [${item.cantidad} pz]</span>
+        <button class="eliminar" data-nombre="${item.producto}">❌</button>
+      </li>
+    `;
+    total += item.precio * item.cantidad;
+  });
+
+  html += `</ul><p class="total">Total: $${total.toFixed(2)}</p>`;
+  contenedor.innerHTML = html;
+
+  // Asignar eventos a botones de eliminar
+  const botonesEliminar = document.querySelectorAll(".eliminar");
+  botonesEliminar.forEach(boton => {
+    boton.addEventListener("click", () => {
+      const nombre = boton.getAttribute("data-nombre");
+      eliminarUnidad(nombre);
     });
+  });
+}
 
-    // Botón pagar (simple demo)
-    document.getElementById("btn-pagar").addEventListener("click", () => {
-      alert("Aquí iría la integración real de MercadoPago.");
-    });
-  </script>
+function eliminarUnidad(nombre) {
+  let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+  let index = carrito.findIndex(item => item.producto === nombre);
+
+  if (index !== -1) {
+    carrito[index].cantidad--;
+    if (carrito[index].cantidad <= 0) {
+      carrito.splice(index, 1);
+    }
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    mostrarMensajeModal("Se eliminó una unidad de " + nombre);
+    renderizarCarrito();
+  }
+}
+
+function mostrarMensajeModal(texto) {
+  const modal = document.getElementById("modalMensaje");
+  document.getElementById("textoModalMensaje").textContent = texto;
+  modal.style.display = "block";
+  setTimeout(() => { modal.style.display = "none"; }, 1500);
+}
+
+document.getElementById("btn-pagar").addEventListener("click", () => {
+  mostrarMensajeModal("Aquí iría la integración real de MercadoPago.");
+});
+</script>
+
 </body>
 </html>

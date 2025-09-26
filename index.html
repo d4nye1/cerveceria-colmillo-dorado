@@ -160,6 +160,30 @@ p {
   background: darkred;
   color: white;
 }
+.link-btn:where(button) {
+  all: unset;
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  background: gold;
+  color: #111;
+  padding: 1rem;
+  margin: 0.6rem auto;
+  width: calc(100% - 2rem);
+  max-width: 250px;
+  border-radius: 90px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s;
+  box-sizing: border-box;
+  text-align: center;
+  cursor: pointer;
+}
+
+.link-btn:where(button):hover {
+  background: #322e1b;
+  color: #ccc;
+}
+
 </style>
 </head>
 
@@ -214,4 +238,3 @@ btnNo.addEventListener("click", () => {
 </script>
 </body>
 </html>
-

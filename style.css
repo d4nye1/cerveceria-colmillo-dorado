@@ -1,0 +1,41 @@
+body {
+  font-family: 'Cormorant Garamond', serif;
+  margin: 0;
+  background: #111;
+  color: #fff;
+}
+
+header {
+  text-align: center;
+  padding: 1rem;
+}
+
+.catalogo {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 2rem;
+}
+
+.producto {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 1rem;
+  width: 200px;
+  text-align: center;
+}
+
+.producto img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.btn-comprar {
+  background: gold;
+  color: #111;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+}
